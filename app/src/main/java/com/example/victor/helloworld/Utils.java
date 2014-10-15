@@ -3,6 +3,9 @@ package com.example.victor.helloworld;
 import android.app.AlertDialog;
 import android.content.Context;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Created by victor on 11.10.2014.
  */
@@ -23,4 +26,12 @@ public class Utils {
         android.os.Process.killProcess(pid);
         System.exit(0);
     }
+
+    public static String getFormattedDate(Boolean andTime) {
+        Calendar calendar = Calendar.getInstance();
+        String dateFormatPattern = "dd.MM.yyyy" + ((andTime == true)? " HH:mm:ss":"");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormatPattern);
+        return simpleDateFormat.format(calendar.getTime());
+    }
+
 }
