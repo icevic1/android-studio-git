@@ -11,22 +11,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MyActivity extends Activity implements View.OnClickListener{
 
     private static String defaultScreenText;
     private static TextView screenTxt;
-//    private static Time currentTime;
+
+    public final int TIMER_DELAY = 1000;
+    public final int TIMER_ONE_MINUTE = 60000;
+    public final int TIMER_ONE_SECOND = 1000;
+    private static Timer timer;
+    private static TimerTask task;
+    TextView textViewTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-
-        //Initialize curent time
-//        this.currentTime = new Time(Time.getCurrentTimezone());
-//        this.currentTime.setToNow();
 
         //Store current view text
         this.screenTxt = (TextView) findViewById(R.id.main_screen_text);
@@ -38,14 +42,33 @@ public class MyActivity extends Activity implements View.OnClickListener{
         final Button buttonShowTime = (Button)findViewById(R.id.buttonShowTime);
         buttonShowTime.setOnClickListener(this);
 
-//        buttonResetText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-        Log.d("myDebug", "my debug message 1");
-        Log.d("myDebug", MyActivity.getDefaultScreenText());
+        final Button buttonTimerStart = (Button)findViewById(R.id.buttonStart);
+        buttonTimerStart.setOnClickListener(this);
+
+        this.timer = new Timer();
+        this.task = new TimerTask() {
+
+            @Override
+            public void run() {
+//                textViewTimer = (TextView) findViewById(R.id.textViewTimerId);
+//                textViewTimer.setText("BOOM!!!!");
+
+//                textViewTimer.setVisibility(TextView.VISIBLE);
+                try {
+//                    MyActivity.screenTxt.setText("BOOM!!!!");
+                    Log.d("myDebug", "BOOM!!!!");
+                    this.wait(TIMER_DELAY);
+                }
+                catch (InterruptedException e){
+                    Log.d("myDebug", "exception!!!!");
+                }
+//                textViewTimer.setVisibility(TextView.INVISIBLE);
+            }
+        };
+
+//        timer.schedule(task, TIMER_DELAY, 3*TIMER_ONE_SECOND);
+
+        Log.d("myDebug", "finish constructor");
     }
 
     private static void setDefaultScreenText(String screenText) {
@@ -120,8 +143,10 @@ public class MyActivity extends Activity implements View.OnClickListener{
                 MyActivity.screenTxt.setText(MyActivity.getDefaultScreenText());
                 break;
             case R.id.buttonShowTime :
-//                MyActivity.screenTxt.setText(MyActivity.currentTime.format("%d.%m.%Y %H:%I:%S"));
                 MyActivity.screenTxt.setText(Utils.getFormattedDate(true));
+                break;
+            case R.id.buttonStart :
+                MyActivity.timer.schedule(MyActivity.task, TIMER_DELAY, 3*TIMER_ONE_SECOND);
                 break;
         }
 
