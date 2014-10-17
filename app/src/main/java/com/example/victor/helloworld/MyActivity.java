@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +27,16 @@ public class MyActivity extends Activity implements View.OnClickListener{
     public final int TIMER_ONE_SECOND = 1000;
     private static Timer timer;
     private static TimerTask task;
-    TextView textViewTimer;
+    private static TextView textViewTimer;
+    public static int i=0;
+
+    private long startTime = 0L;
+
+    private Handler customHandler = new Handler();
+
+    long timeInMilliseconds = 0L;
+    long timeSwapBuff = 0L;
+    long updatedTime = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +47,8 @@ public class MyActivity extends Activity implements View.OnClickListener{
         this.screenTxt = (TextView) findViewById(R.id.main_screen_text);
         MyActivity.setDefaultScreenText(this.screenTxt.getText().toString());
 
+        this.textViewTimer = (TextView) findViewById(R.id.textViewTimerId);
+
         final Button buttonResetText = (Button)findViewById(R.id.buttonResetText);
         buttonResetText.setOnClickListener(this);
 
@@ -45,28 +58,28 @@ public class MyActivity extends Activity implements View.OnClickListener{
         final Button buttonTimerStart = (Button)findViewById(R.id.buttonStart);
         buttonTimerStart.setOnClickListener(this);
 
-        this.timer = new Timer();
-        this.task = new TimerTask() {
+        final Button buttonTimerStop = (Button)findViewById(R.id.buttonStop);
+        buttonTimerStop.setOnClickListener(this);
 
-            @Override
-            public void run() {
-//                textViewTimer = (TextView) findViewById(R.id.textViewTimerId);
-//                textViewTimer.setText("BOOM!!!!");
+       /* buttonTimerStart.setOnClickListener(new View.OnClickListener() {
 
-//                textViewTimer.setVisibility(TextView.VISIBLE);
-                try {
-//                    MyActivity.screenTxt.setText("BOOM!!!!");
-                    Log.d("myDebug", "BOOM!!!!");
-                    this.wait(TIMER_DELAY);
-                }
-                catch (InterruptedException e){
-                    Log.d("myDebug", "exception!!!!");
-                }
-//                textViewTimer.setVisibility(TextView.INVISIBLE);
+            public void onClick(View view) {
+                startTime = SystemClock.uptimeMillis();
+                customHandler.postDelayed(updateTimerThread, 0);
+
             }
-        };
+        });*/
 
-//        timer.schedule(task, TIMER_DELAY, 3*TIMER_ONE_SECOND);
+        /*buttonTimerStop.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                timeSwapBuff += timeInMilliseconds;
+                customHandler.removeCallbacks(updateTimerThread);
+
+            }
+        });*/
+
 
         Log.d("myDebug", "finish constructor");
     }
@@ -146,12 +159,69 @@ public class MyActivity extends Activity implements View.OnClickListener{
                 MyActivity.screenTxt.setText(Utils.getFormattedDate(true));
                 break;
             case R.id.buttonStart :
-                MyActivity.timer.schedule(MyActivity.task, TIMER_DELAY, 3*TIMER_ONE_SECOND);
+                startTime = SystemClock.uptimeMillis();
+                customHandler.postDelayed(updateTimerThread, 0);
+                break;
+            case R.id.buttonStop :
+                timeSwapBuff += timeInMilliseconds;
+                customHandler.removeCallbacks(updateTimerThread);
                 break;
         }
 
         Log.d("MyDebug", "Button " + view.getId() + " pressed !");
     }
 
+
+    private Runnable updateTimerThread = new Runnable() {
+
+        public void run() {
+
+            timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
+
+            updatedTime = timeSwapBuff + timeInMilliseconds;
+
+            int secs = (int) (updatedTime / 1000);
+            int mins = secs / 60;
+            secs = secs % 60;
+            int milliseconds = (int) (updatedTime % 1000);
+            MyActivity.textViewTimer.setText("" + mins + ":"
+                    + String.format("%02d", secs) + ":"
+                    + String.format("%03d", milliseconds));
+            customHandler.postDelayed(this, 0);
+        }
+
+    };
+
+    /*private void startingUp() {
+        Thread timer = new Thread() { //new thread
+            public void run() {
+                boolean b = true;
+                try {
+                    do {
+                        counter++;
+
+                        sleep(1000);
+                        runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                title();
+                                //title.clearComposingText();//not useful
+
+                            }
+                        });
+
+
+                    }
+                    while (b == true);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                finally {
+                }
+            };
+        };
+        timer.start();
+    }*/
 
 }
