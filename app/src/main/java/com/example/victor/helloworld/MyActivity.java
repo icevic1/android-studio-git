@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -55,11 +57,11 @@ public class MyActivity extends Activity implements View.OnClickListener{
         final Button buttonShowTime = (Button)findViewById(R.id.buttonShowTime);
         buttonShowTime.setOnClickListener(this);
 
-        final Button buttonTimerStart = (Button)findViewById(R.id.buttonStart);
-        buttonTimerStart.setOnClickListener(this);
+        //final Button buttonTimerStart = (Button)findViewById(R.id.buttonStart);
+       // buttonTimerStart.setOnClickListener(this);
 
-        final Button buttonTimerStop = (Button)findViewById(R.id.buttonStop);
-        buttonTimerStop.setOnClickListener(this);
+//        final Button buttonTimerStop = (Button)findViewById(R.id.buttonStop);
+//        buttonTimerStop.setOnClickListener(this);
 
        /* buttonTimerStart.setOnClickListener(new View.OnClickListener() {
 
@@ -192,36 +194,36 @@ public class MyActivity extends Activity implements View.OnClickListener{
 
     };
 
-    /*private void startingUp() {
-        Thread timer = new Thread() { //new thread
-            public void run() {
-                boolean b = true;
-                try {
-                    do {
-                        counter++;
+    public void onToggleButtonTimerStartPauseClick(View button) {
 
-                        sleep(1000);
-                        runOnUiThread(new Runnable() {
+        if (((ToggleButton) button).isChecked()) {
+            //start timer
+            startTime = SystemClock.uptimeMillis();
+            customHandler.postDelayed(updateTimerThread, 0);
+        } else {
+            //stop timer
+            timeSwapBuff += timeInMilliseconds;
+            customHandler.removeCallbacks(updateTimerThread);
+        }
 
-                            @Override
-                            public void run() {
-                                title();
-                                //title.clearComposingText();//not useful
+        /*Toast.makeText(
+                getApplicationContext(),
+                Boolean.toString(((ToggleButton) button).isChecked()),
+                Toast.LENGTH_SHORT).show();*/
+    }
 
-                            }
-                        });
+    public void onButtonTimerResetClick(View button) {
 
+        //stop timer
+        timeSwapBuff += timeInMilliseconds;
+        customHandler.removeCallbacks(updateTimerThread);
 
-                    }
-                    while (b == true);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                finally {
-                }
-            };
-        };
-        timer.start();
-    }*/
+        // reset timer text with 00:00:00 - gotten from strings file
+        MyActivity.textViewTimer.setText(R.string.timerVal);
+
+        // reset toggled button to default
+        ToggleButton buttonTimerStart = (ToggleButton)findViewById(R.id.buttonStart);
+        buttonTimerStart.setChecked(false);
+    }
 
 }
