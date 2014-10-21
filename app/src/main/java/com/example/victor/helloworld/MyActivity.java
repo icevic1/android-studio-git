@@ -32,10 +32,9 @@ public class MyActivity extends Activity implements View.OnClickListener{
     private static TextView textViewTimer;
     public static int i=0;
 
-    private long startTime = 0L;
-
     private Handler customHandler = new Handler();
 
+    private long startTime = 0L;
     long timeInMilliseconds = 0L;
     long timeSwapBuff = 0L;
     long updatedTime = 0L;
@@ -213,10 +212,16 @@ public class MyActivity extends Activity implements View.OnClickListener{
     }
 
     public void onButtonTimerResetClick(View button) {
+        startTime = 0L;
+        timeInMilliseconds = 0L;
+        timeSwapBuff = 0L;
+        updatedTime = 0L;
 
         //stop timer
         timeSwapBuff += timeInMilliseconds;
         customHandler.removeCallbacks(updateTimerThread);
+
+
 
         // reset timer text with 00:00:00 - gotten from strings file
         MyActivity.textViewTimer.setText(R.string.timerVal);
