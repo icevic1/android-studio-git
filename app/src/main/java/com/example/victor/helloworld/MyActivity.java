@@ -12,11 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
-import android.widget.Toast;
+//import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import java.util.Timer;
-import java.util.TimerTask;
+//import java.util.Timer;
+//import java.util.TimerTask;
 
 
 public class MyActivity extends Activity implements View.OnClickListener{
@@ -24,13 +24,7 @@ public class MyActivity extends Activity implements View.OnClickListener{
     private static String defaultScreenText;
     private static TextView screenTxt;
 
-    public final int TIMER_DELAY = 1000;
-    public final int TIMER_ONE_MINUTE = 60000;
-    public final int TIMER_ONE_SECOND = 1000;
-    private static Timer timer;
-    private static TimerTask task;
     private static TextView textViewTimer;
-    public static int i=0;
 
     private Handler customHandler = new Handler();
 
@@ -45,10 +39,10 @@ public class MyActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_my);
 
         //Store current view text
-        this.screenTxt = (TextView) findViewById(R.id.main_screen_text);
-        MyActivity.setDefaultScreenText(this.screenTxt.getText().toString());
+        screenTxt = (TextView) findViewById(R.id.main_screen_text);
+        MyActivity.setDefaultScreenText(screenTxt.getText().toString());
 
-        this.textViewTimer = (TextView) findViewById(R.id.textViewTimerId);
+       textViewTimer = (TextView) findViewById(R.id.textViewTimerId);
 
         final Button buttonResetText = (Button)findViewById(R.id.buttonResetText);
         buttonResetText.setOnClickListener(this);
@@ -108,7 +102,7 @@ public class MyActivity extends Activity implements View.OnClickListener{
         int id = item.getItemId();
         if (id == R.id.action_settings) {
 //            Utils.killCurrentProcess();
-            this.screenTxt.setText("Pressed settings menu point");
+            screenTxt.setText("Pressed settings menu point");
             return true;
         } else if (id == R.id.action_exit) {
             //Utils.showAlert("mesage", this.getBaseContext());
@@ -121,7 +115,7 @@ public class MyActivity extends Activity implements View.OnClickListener{
     public void onBackPressed() {
         //final TextView defaultScreenText = this.screenTxt;
 
-        this.screenTxt.setText("Try to close...");
+        screenTxt.setText("Try to close...");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
@@ -159,14 +153,14 @@ public class MyActivity extends Activity implements View.OnClickListener{
             case R.id.buttonShowTime :
                 MyActivity.screenTxt.setText(Utils.getFormattedDate(true));
                 break;
-            case R.id.buttonStart :
+            /*case R.id.buttonStart :
                 startTime = SystemClock.uptimeMillis();
                 customHandler.postDelayed(updateTimerThread, 0);
                 break;
             case R.id.buttonStop :
                 timeSwapBuff += timeInMilliseconds;
                 customHandler.removeCallbacks(updateTimerThread);
-                break;
+                break;*/
         }
 
         Log.d("MyDebug", "Button " + view.getId() + " pressed !");
@@ -185,7 +179,8 @@ public class MyActivity extends Activity implements View.OnClickListener{
             int mins = secs / 60;
             secs = secs % 60;
             int milliseconds = (int) (updatedTime % 1000);
-            MyActivity.textViewTimer.setText("" + mins + ":"
+            MyActivity.textViewTimer.setText(""
+                    + String.format("%02d", mins) + ":"
                     + String.format("%02d", secs) + ":"
                     + String.format("%03d", milliseconds));
             customHandler.postDelayed(this, 0);
