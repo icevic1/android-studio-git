@@ -13,4 +13,14 @@
     <string name="text_button_pause">Pause</string>
     <string name="text_button_reset">Reset</string>
 
+    <string name="about_title">About</string>
+    <string name="about_text">
+        My first application on android OS \n\n
+        About application\n
+        In this application I intend we offer more functionality from our smart-phone\n\n
+        Name: Victor\n
+        Surname: Orletchi\n
+        App version: 1.0\n
+    </string>
+
 </resources>
