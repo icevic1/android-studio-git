@@ -2,17 +2,17 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@drawable/pause_icon_32"
+        android:drawable="@drawable/pause_icon_64"
         android:state_checked="true"
         android:state_pressed="true" />
     <item
-        android:drawable="@drawable/pause_icon_32"
+        android:drawable="@drawable/pause_icon_64"
         android:state_checked="true" />
     <item
-        android:drawable="@drawable/start_icon_32"
+        android:drawable="@drawable/start_icon_64"
         android:state_checked="false"
         android:state_pressed="true" />
     <item
-        android:drawable="@drawable/start_icon_32"
+        android:drawable="@drawable/start_icon_64"
         android:state_checked="false" />
 </selector>

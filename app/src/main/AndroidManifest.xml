@@ -15,8 +15,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutActivity"
+        <activity
+            android:name=".AboutActivity"
             android:label="@string/about_title">
+        </activity>
+        <activity
+            android:name=".StopwatchActivity"
+            android:label="@string/stopwatch_title_bar">
         </activity>
     </application>
 

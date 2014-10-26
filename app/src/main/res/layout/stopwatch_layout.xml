@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/custom_theme_background"
+    >
+
+
+
+    <TextView
+        android:id="@+id/textViewTimerId"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/timerVal"
+        android:textColor="@color/white"
+        android:textSize="90sp"
+        android:gravity="center_horizontal" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewTimerId"
+        android:layout_marginTop="133dp"
+        >
+
+        <ToggleButton
+            android:id="@+id/buttonStart"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight=".50"
+            android:textOn="@string/text_button_start"
+            android:textOff="@string/text_button_stop"
+
+            android:textStyle="bold"
+            android:textColor="@color/button_text_color"
+            android:paddingRight="20dp"
+            android:drawableLeft="@drawable/change_timer_icon_toggle_start"
+            android:background="@drawable/button_background"
+            android:onClick="onToggleButtonTimerStartPauseClick"
+            android:layout_alignTop="@+id/buttonStop"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="30dp"
+            android:textAllCaps="true" />
+
+        <Button
+            android:id="@+id/buttonStop"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight=".50"
+            android:text="@string/text_button_reset"
+            android:textStyle="bold"
+            android:textColor="@color/button_text_color"
+            android:paddingRight="20dp"
+            android:drawableLeft="@drawable/stop_rest_button"
+            android:background="@drawable/button_background"
+            android:onClick="onButtonTimerResetClick"
+            android:layout_below="@+id/textViewTimerId"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+
+            android:textSize="30dp"
+            android:textAllCaps="true" />
+
+    </LinearLayout>
+
+</RelativeLayout>

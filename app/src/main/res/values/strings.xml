@@ -22,5 +22,5 @@
         Surname: Orletchi\n
         App version: 1.0\n
     </string>
-
+    <string name="stopwatch_title_bar">Stopwatch</string>
 </resources>

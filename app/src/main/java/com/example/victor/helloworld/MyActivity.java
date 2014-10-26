@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 import android.content.Intent;
+import android.widget.ImageButton;
 //import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -51,8 +52,11 @@ public class MyActivity extends Activity implements View.OnClickListener{
         final Button buttonShowTime = (Button)findViewById(R.id.buttonShowTime);
         buttonShowTime.setOnClickListener(this);
 
-        //final Button buttonTimerStart = (Button)findViewById(R.id.buttonStart);
-       // buttonTimerStart.setOnClickListener(this);
+//        final Button buttonStopwatch = (Button)findViewById(R.id.buttonStopwatch);
+//        buttonStopwatch.setOnClickListener(this);
+
+        final ImageButton buttonStopwatch = (ImageButton) findViewById(R.id.buttonStopwatch);
+        buttonStopwatch.setOnClickListener(this);
 
 //        final Button buttonTimerStop = (Button)findViewById(R.id.buttonStop);
 //        buttonTimerStop.setOnClickListener(this);
@@ -160,12 +164,14 @@ public class MyActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.buttonShowTime :
                 MyActivity.screenTxt.setText(Utils.getFormattedDate(true));
+                Log.d("MyDebug", "Button show time pressed !");
                 break;
-            /*case R.id.buttonStart :
-                startTime = SystemClock.uptimeMillis();
-                customHandler.postDelayed(updateTimerThread, 0);
+            case R.id.buttonStopwatch :
+                Intent intent = new Intent(MyActivity.this, StopwatchActivity.class);
+                startActivity(intent);
+                Log.d("MyDebug", "Button suka pressed !");
                 break;
-            case R.id.buttonStop :
+            /*case R.id.buttonStop :
                 timeSwapBuff += timeInMilliseconds;
                 customHandler.removeCallbacks(updateTimerThread);
                 break;*/

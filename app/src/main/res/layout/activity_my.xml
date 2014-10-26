@@ -38,48 +38,12 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:id="@+id/textViewTimerId"
+    <ImageButton
+        android:id="@+id/buttonStopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/timerVal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textColor="@color/white"
-        android:textSize="30sp" />
 
-    <ToggleButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textOn="@string/text_button_start"
-        android:textOff="@string/text_button_stop"
-        android:id="@+id/buttonStart"
-        android:layout_alignBottom="@+id/textViewTimerId"
-        android:layout_alignParentLeft="true"
-        android:textStyle="bold"
-        android:textColor="@color/button_text_color"
-        android:paddingRight="20dp"
-        android:layout_alignParentStart="true"
-        android:drawableLeft="@drawable/change_timer_icon_toggle_start"
-        android:background="@drawable/button_background"
-        android:onClick="onToggleButtonTimerStartPauseClick"
-        android:layout_alignTop="@+id/textViewTimerId" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_button_reset"
-        android:id="@+id/buttonStop"
-        android:layout_alignParentBottom="true"
-        android:textStyle="bold"
-        android:textColor="@color/button_text_color"
-        android:paddingRight="20dp"
-        android:layout_toRightOf="@+id/buttonStart"
-        android:drawableLeft="@drawable/stop_rest_button"
-        android:background="@drawable/button_background"
-        android:onClick="onButtonTimerResetClick"
-        android:layout_alignTop="@+id/textViewTimerId" />
+        android:layout_below="@+id/buttonResetText"
+        android:src="@drawable/stopwatch__icon_128" />
 
 </RelativeLayout>
