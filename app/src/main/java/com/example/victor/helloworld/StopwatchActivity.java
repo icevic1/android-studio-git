@@ -29,6 +29,7 @@ public class StopwatchActivity extends Activity {
         //Store current view text
         textViewTimer = (TextView) findViewById(R.id.textViewTimerId);
 
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         Log.d("myDebugStopwatch", "---- constructor---");
     }
 

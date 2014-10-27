@@ -1,6 +1,7 @@
 package com.example.victor.helloworld;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
 //import android.content.Intent;
 
 /**
@@ -12,5 +13,13 @@ public class AboutActivity extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_layout);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.my, menu);
+        return true;
     }
 }

@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.util.Log;
 import android.content.Intent;
 import android.widget.ImageButton;
 //import android.widget.Toast;
-import android.widget.ToggleButton;
 
 //import java.util.Timer;
 //import java.util.TimerTask;
@@ -26,15 +23,6 @@ public class MyActivity extends Activity implements View.OnClickListener{
     private static String defaultScreenText;
     private static TextView screenTxt;
 
-    private static TextView textViewTimer;
-
-    private Handler customHandler = new Handler();
-
-    private long startTime = 0L;
-    long timeInMilliseconds = 0L;
-    long timeSwapBuff = 0L;
-    long updatedTime = 0L;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +31,6 @@ public class MyActivity extends Activity implements View.OnClickListener{
         //Store current view text
         screenTxt = (TextView) findViewById(R.id.main_screen_text);
         MyActivity.setDefaultScreenText(screenTxt.getText().toString());
-
-       textViewTimer = (TextView) findViewById(R.id.textViewTimerId);
 
         final Button buttonResetText = (Button)findViewById(R.id.buttonResetText);
         buttonResetText.setOnClickListener(this);
@@ -178,66 +164,6 @@ public class MyActivity extends Activity implements View.OnClickListener{
         }
 
         Log.d("MyDebug", "Button " + view.getId() + " pressed !");
-    }
-
-
-    private Runnable updateTimerThread = new Runnable() {
-
-        public void run() {
-
-            timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
-
-            updatedTime = timeSwapBuff + timeInMilliseconds;
-
-            int secs = (int) (updatedTime / 1000);
-            int mins = secs / 60;
-            secs = secs % 60;
-            int milliseconds = (int) (updatedTime % 1000);
-            MyActivity.textViewTimer.setText(""
-                    + String.format("%02d", mins) + ":"
-                    + String.format("%02d", secs) + ":"
-                    + String.format("%03d", milliseconds));
-            customHandler.postDelayed(this, 0);
-        }
-
-    };
-
-    public void onToggleButtonTimerStartPauseClick(View button) {
-
-        if (((ToggleButton) button).isChecked()) {
-            //start timer
-            startTime = SystemClock.uptimeMillis();
-            customHandler.postDelayed(updateTimerThread, 0);
-        } else {
-            //stop timer
-            timeSwapBuff += timeInMilliseconds;
-            customHandler.removeCallbacks(updateTimerThread);
-        }
-
-        /*Toast.makeText(
-                getApplicationContext(),
-                Boolean.toString(((ToggleButton) button).isChecked()),
-                Toast.LENGTH_SHORT).show();*/
-    }
-
-    public void onButtonTimerResetClick(View button) {
-        startTime = 0L;
-        timeInMilliseconds = 0L;
-        timeSwapBuff = 0L;
-        updatedTime = 0L;
-
-        //stop timer
-        timeSwapBuff += timeInMilliseconds;
-        customHandler.removeCallbacks(updateTimerThread);
-
-
-
-        // reset timer text with 00:00:00 - gotten from strings file
-        MyActivity.textViewTimer.setText(R.string.timerVal);
-
-        // reset toggled button to default
-        ToggleButton buttonTimerStart = (ToggleButton)findViewById(R.id.buttonStart);
-        buttonTimerStart.setChecked(false);
     }
 
 }

@@ -17,11 +17,23 @@
         </activity>
         <activity
             android:name=".AboutActivity"
-            android:label="@string/about_title">
+            android:label="@string/about_title"
+            android:icon="@drawable/home_128"
+            android:parentActivityName="com.example.victor.helloworld.MyActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.victor.helloworld.MyActivity" />
         </activity>
         <activity
             android:name=".StopwatchActivity"
-            android:label="@string/stopwatch_title_bar">
+            android:label="@string/stopwatch_title_bar"
+            android:icon="@drawable/home_128"
+            android:parentActivityName="com.example.victor.helloworld.MyActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.victor.helloworld.MyActivity" />
         </activity>
     </application>
 
