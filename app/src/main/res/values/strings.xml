@@ -23,4 +23,5 @@
         App version: 1.0\n
     </string>
     <string name="stopwatch_title_bar">Stopwatch</string>
+    <string name="datetime_title_bar">Date and Time</string>
 </resources>

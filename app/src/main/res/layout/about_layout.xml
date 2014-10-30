@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dip"
-    android:background="@color/custom_theme_background">
+    >
 
     <TextView
         android:id="@+id/about_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/about_text"
-        android:textColor="@color/custom_theme_color" />
+        />
 
 </ScrollView>

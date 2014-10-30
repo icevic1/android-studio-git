@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.util.Log;
 import android.content.Intent;
 import android.widget.ImageButton;
@@ -20,32 +18,16 @@ import android.widget.ImageButton;
 
 public class MyActivity extends Activity implements View.OnClickListener{
 
-    private static String defaultScreenText;
-    private static TextView screenTxt;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-        //Store current view text
-        screenTxt = (TextView) findViewById(R.id.main_screen_text);
-        MyActivity.setDefaultScreenText(screenTxt.getText().toString());
-
-        final Button buttonResetText = (Button)findViewById(R.id.buttonResetText);
-        buttonResetText.setOnClickListener(this);
-
-        final Button buttonShowTime = (Button)findViewById(R.id.buttonShowTime);
-        buttonShowTime.setOnClickListener(this);
-
-//        final Button buttonStopwatch = (Button)findViewById(R.id.buttonStopwatch);
-//        buttonStopwatch.setOnClickListener(this);
-
         final ImageButton buttonStopwatch = (ImageButton) findViewById(R.id.buttonStopwatch);
         buttonStopwatch.setOnClickListener(this);
 
-//        final Button buttonTimerStop = (Button)findViewById(R.id.buttonStop);
-//        buttonTimerStop.setOnClickListener(this);
+        final ImageButton buttonClockTime = (ImageButton) findViewById(R.id.buttonDateTime);
+        buttonClockTime.setOnClickListener(this);
 
        /* buttonTimerStart.setOnClickListener(new View.OnClickListener() {
 
@@ -66,16 +48,7 @@ public class MyActivity extends Activity implements View.OnClickListener{
             }
         });*/
 
-
         Log.d("myDebug", "finish constructor");
-    }
-
-    private static void setDefaultScreenText(String screenText) {
-        MyActivity.defaultScreenText = screenText;
-    }
-
-    private static String getDefaultScreenText() {
-        return MyActivity.defaultScreenText;
     }
 
     @Override
@@ -94,7 +67,6 @@ public class MyActivity extends Activity implements View.OnClickListener{
         switch (item.getItemId()) {
             case R.id.action_settings:
 //                Utils.killCurrentProcess();
-                screenTxt.setText("Pressed settings menu point");
 //                return true;
                 break;
             case R.id.action_exit:
@@ -112,8 +84,6 @@ public class MyActivity extends Activity implements View.OnClickListener{
     @Override
     public void onBackPressed() {
         //final TextView defaultScreenText = this.screenTxt;
-
-        screenTxt.setText("Try to close...");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
@@ -133,7 +103,6 @@ public class MyActivity extends Activity implements View.OnClickListener{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //if user select "No", just cancel this dialog and continue with app
-                MyActivity.screenTxt.setText(MyActivity.getDefaultScreenText());
                 Log.d("myDebug", "No");
                 dialog.cancel();
             }
@@ -145,22 +114,16 @@ public class MyActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick (View view){
         switch (view.getId()) {
-            case R.id.buttonResetText :
-                MyActivity.screenTxt.setText(MyActivity.getDefaultScreenText());
-                break;
-            case R.id.buttonShowTime :
-                MyActivity.screenTxt.setText(Utils.getFormattedDate(true));
-                Log.d("MyDebug", "Button show time pressed !");
-                break;
             case R.id.buttonStopwatch :
                 Intent intent = new Intent(MyActivity.this, StopwatchActivity.class);
                 startActivity(intent);
-                Log.d("MyDebug", "Button suka pressed !");
+                Log.d("MyDebug", "Button StopwatchActivity pressed !");
                 break;
-            /*case R.id.buttonStop :
-                timeSwapBuff += timeInMilliseconds;
-                customHandler.removeCallbacks(updateTimerThread);
-                break;*/
+            case R.id.buttonDateTime :
+//                Intent intent = new Intent(MyActivity.this, DatetimeActivity.class);
+                startActivity(new Intent(MyActivity.this, DatetimeActivity.class));
+                Log.d("MyDebug", "Button DatetimeActivity pressed !");
+                break;
         }
 
         Log.d("MyDebug", "Button " + view.getId() + " pressed !");
